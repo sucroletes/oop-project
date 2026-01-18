@@ -13,4 +13,26 @@ def day_of_year(day, month, year):
     day_of_years = sum(days_in_month[:month - 1]) + day
     return day_of_years
 
-print(day_of_year(29, 2, 2024))  # 60 (leap year)
+print(day_of_year(29, 2, 2024))
+
+def date_diff(date1, date2):
+ 
+    d1, m1, y1 = map(int, date1.split("-"))
+    d2, m2, y2 = map(int, date2.split("-"))
+ 
+    if y1 == y2:
+        return day_of_year(d2, m2, y2) - day_of_year(d1, m1, y1) + 1
+    
+ 
+    days = (366 if is_leap(y1) else 365) - day_of_year(d1, m1, y1) + 1
+
+
+    for year in range(y1 + 1, y2):
+        days += (366 if is_leap(year) else 365)
+
+ 
+    days += day_of_year(d2, m2, y2)
+
+    return days
+
+print(date_diff("25-12-1999", "9-3-2000"))  # 76
